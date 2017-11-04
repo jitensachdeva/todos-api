@@ -63,6 +63,31 @@ RSpec.describe 'Items API' do
     end
   end
 
+  # Test suite for POST /todos/:todo_id/items
+  describe 'POST /todos/:todo_id/items' do
+    let(:valid_attributes) { { name: 'Visit Narnia', done: false } }
+
+    context 'when request attributes are valid' do
+      before { post "/todos/#{todo_id}/items", params: valid_attributes }
+
+      it 'returns status code 201' do
+        expect(response).to have_http_status(:created)
+      end
+    end
+
+    context 'when an invalid request' do
+      before { post "/todos/#{todo_id}/items", params: {} }
+
+      it 'returns status code 422' do
+        expect(response).to have_http_status(:unprocessable_entity)
+      end
+
+      it 'returns a failure message' do
+        expect(response.body).to match(/Validation failed: Name can't be blank/)
+      end
+    end
+  end
+
   # Test suite for PUT /todos/:todo_id/items/:id
   describe 'PUT /todos/:todo_id/items/:id' do
 

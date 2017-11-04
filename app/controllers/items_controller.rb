@@ -12,6 +12,12 @@ class ItemsController < ApplicationController
     json_response(@item)
   end
 
+  # POST /todos/:todo_id/items/
+  def create
+    @todo.items.create!(item_params)
+    json_response(@todo, :created)
+  end
+
   # PUT /todos/:todo_id/items/
   def update
     @item.update(item_params)
