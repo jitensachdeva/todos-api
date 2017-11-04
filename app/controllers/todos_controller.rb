@@ -1,5 +1,5 @@
 class TodosController < ApplicationController
-  before_action :set_todo, only: [:show, :update]
+  before_action :set_todo, only: [:show, :update, :destroy]
 
 
   # GET /todos
@@ -23,6 +23,12 @@ class TodosController < ApplicationController
   def update
     #Todo what should be corerct error message if record to be updated is not found
     @todo.update(todo_params)
+    head :no_content
+  end
+
+  #DELETE /todos/:id
+  def destroy
+    @todo.destroy
     head :no_content
   end
 

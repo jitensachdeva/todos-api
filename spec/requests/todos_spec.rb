@@ -107,4 +107,22 @@ RSpec.describe 'Todos API', type: :request do
 
   end
 
+# Test suite for DELETE /todos/:id
+  describe 'DELETE /todos/:id' do
+    before { delete "/todos/#{todo_id}" }
+
+    it 'returns status code 204' do
+      expect(response).to have_http_status(:no_content)
+    end
+
+    context 'when the record do not exists' do
+      let(:todo_id) { 100 }
+
+      it 'returns status code 404' do
+        expect(response).to have_http_status(:not_found)
+      end
+    end
+
+  end
+
 end
