@@ -1,6 +1,6 @@
 class ItemsController < ApplicationController
   before_action :set_todo
-  before_action :set_todo_item, only: [:show]
+  before_action :set_todo_item, only: [:show, :update]
 
   # GET /todos/:todo_id/items
   def index
@@ -12,6 +12,12 @@ class ItemsController < ApplicationController
     json_response(@item)
   end
 
+  # PUT /todos/:todo_id/items/
+  def update
+    @item.update(item_params)
+    head :no_content
+  end
+
   private
 
   def set_todo
@@ -20,5 +26,9 @@ class ItemsController < ApplicationController
 
   def set_todo_item
     @item = @todo.items.find_by!(id: params[:id]) if @todo
+  end
+
+  def item_params
+    params.permit(:name,:done)
   end
 end
