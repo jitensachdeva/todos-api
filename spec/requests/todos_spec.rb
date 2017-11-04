@@ -14,8 +14,8 @@ RSpec.describe 'Todos API', type: :request do
     end
 
     it 'returns todos' do
-      expect(response_in_json).not_to be_empty
-      expect(response_in_json.size).to eq(10)
+      expect(response_body_in_json).not_to be_empty
+      expect(response_body_in_json.size).to eq(10)
     end
 
   end
@@ -30,8 +30,8 @@ RSpec.describe 'Todos API', type: :request do
       end
 
       it 'returns the todo' do
-        expect(response_in_json).not_to be_empty
-        expect(response_in_json['id']).to eq(todo_id)
+        expect(response_body_in_json).not_to be_empty
+        expect(response_body_in_json['id']).to eq(todo_id)
       end
     end
 
@@ -49,4 +49,36 @@ RSpec.describe 'Todos API', type: :request do
 
   end
 
+# Test suite for POST /todos
+  describe 'POST /todos' do
+    context 'when the request is valid' do
+      # valid payload
+      let(:valid_attributes) { { title: 'Learn Elm', created_by: '1' } }
+
+      before { post '/todos', params: valid_attributes }
+      it 'returns status code 201' do
+        expect(response).to have_http_status(:created)
+      end
+
+      it 'creates a todo' do
+        expect(response_body_in_json['title']).to eq('Learn Elm')
+      end
+    end
+
+    context 'when the request is invalid' do
+      before { post '/todos', params: { title: 'Foobar' } }
+
+      it 'returns status code 422' do
+        expect(response).to have_http_status(:unprocessable_entity)
+      end
+
+      it 'returns a validation failure message' do
+        expect(response.body)
+            .to match(/Validation failed: Created by can't be blank/)
+      end
+
+    end
+
+  end
+  
 end
