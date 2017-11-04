@@ -80,5 +80,31 @@ RSpec.describe 'Todos API', type: :request do
     end
 
   end
-  
+
+# Test suite for PUT /todos/:id
+  describe 'PUT /todos/:id' do
+    let(:valid_attributes) { { title: 'Shopping' } }
+    before { put "/todos/#{todo_id}", params: valid_attributes }
+
+    context 'when the record exists' do
+      it 'updates the record' do
+        expect(response.body).to be_empty
+      end
+
+      it 'returns status code 204' do
+        expect(response).to have_http_status(:no_content)
+      end
+    end
+
+    context 'when the record do not exists' do
+      let(:todo_id) { 100 }
+
+      it 'returns status code 404' do
+        expect(response).to have_http_status(:not_found)
+      end
+    end
+
+
+  end
+
 end

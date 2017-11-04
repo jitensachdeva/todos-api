@@ -1,5 +1,5 @@
 class TodosController < ApplicationController
-  before_action :set_todo, only: [:show]
+  before_action :set_todo, only: [:show, :update]
 
 
   # GET /todos
@@ -17,6 +17,13 @@ class TodosController < ApplicationController
   def create
     @todo = Todo.create!(todo_params)
     json_response(@todo, :created)
+  end
+
+  #PUT /todos
+  def update
+    #Todo what should be corerct error message if record to be updated is not found
+    @todo.update(todo_params)
+    head :no_content
   end
 
   private
