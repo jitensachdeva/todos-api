@@ -22,6 +22,45 @@ RSpec.describe 'Items API' do
       end
     end
 
+    context 'when todo does not exist' do
+      let(:todo_id) { 0 }
+
+      it 'returns status code 404' do
+        expect(response).to have_http_status(:not_found)
+      end
+
+      it 'returns a not found message' do
+        expect(response.body).to match(/Couldn't find Todo/)
+      end
+    end
+
+  end
+
+  # Test suite for GET /todos/:todo_id/items/:id
+  describe 'GET /todos/:todo_id/items/:id' do
+    before { get "/todos/#{todo_id}/items/#{id}" }
+
+    context 'when todo item exists' do
+      it 'returns status code 200' do
+        expect(response).to have_http_status(:ok)
+      end
+
+      it 'returns the item' do
+        expect(response_body_in_json['id']).to eq(id)
+      end
+    end
+
+    context 'when todo item does not exist' do
+      let(:id) { 0 }
+
+      it 'returns status code 404' do
+        expect(response).to have_http_status(:not_found)
+      end
+
+      it 'returns a not found message' do
+        expect(response.body).to match(/Couldn't find Item/)
+      end
+    end
   end
 
 end
