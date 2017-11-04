@@ -23,3 +23,4 @@
 .idea
 
 spec/rspec_output.html
+coverage
