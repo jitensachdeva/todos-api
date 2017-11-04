@@ -1,1 +1,5 @@
+--color
+--format documentation
+--format html
 --require spec_helper
+--out spec/rspec_output.html

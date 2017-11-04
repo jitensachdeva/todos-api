@@ -21,3 +21,5 @@
 .byebug_history
 
 .idea
+
+spec/rspec_output.html
