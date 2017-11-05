@@ -1,4 +1,5 @@
 --color
+--profile
 --format documentation
 --format html
 --require spec_helper
