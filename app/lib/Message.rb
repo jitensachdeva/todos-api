@@ -8,4 +8,8 @@ class Message
     'Missing token'
   end
 
+  def self.invalid_credentials
+    'Invalid credentials'
+  end
+
 end
