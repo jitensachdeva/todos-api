@@ -5,7 +5,7 @@ RSpec.describe 'Authentication API', type: :request do
   # Authentication test suite
   describe 'POST /auth/login' do
 
-    let(:headers){{"Content-Type" => "application/json"}}
+    let(:headers){request_headers}
     before {post '/auth/login' ,params: credentials, headers: headers }
     # returns auth token when request is valid
     context 'When request is valid' do
@@ -18,7 +18,7 @@ RSpec.describe 'Authentication API', type: :request do
       end
 
       it 'returns an authetication token' do
-        expect(response_body_in_json['auth_token']).not_to be_nil
+        expect(response_in_json['auth_token']).not_to be_nil
       end
     end
 
@@ -31,7 +31,7 @@ RSpec.describe 'Authentication API', type: :request do
         }.to_json
       end
       it 'returns a failure message' do
-        expect(response_body_in_json['message']).to match(/Invalid credentials/)
+        expect(response_in_json['message']).to match(/Invalid credentials/)
       end
 
       it 'returns a status code 401' do

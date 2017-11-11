@@ -14,8 +14,8 @@ RSpec.describe 'Todos API', type: :request do
     end
 
     it 'returns todos' do
-      expect(response_body_in_json).not_to be_empty
-      expect(response_body_in_json.size).to eq(10)
+      expect(response_in_json).not_to be_empty
+      expect(response_in_json.size).to eq(10)
     end
 
   end
@@ -30,8 +30,8 @@ RSpec.describe 'Todos API', type: :request do
       end
 
       it 'returns the todo' do
-        expect(response_body_in_json).not_to be_empty
-        expect(response_body_in_json['id']).to eq(todo_id)
+        expect(response_in_json).not_to be_empty
+        expect(response_in_json['id']).to eq(todo_id)
       end
     end
 
@@ -61,7 +61,7 @@ RSpec.describe 'Todos API', type: :request do
       end
 
       it 'creates a todo' do
-        expect(response_body_in_json['title']).to eq('Learn Elm')
+        expect(response_in_json['title']).to eq('Learn Elm')
       end
     end
 
