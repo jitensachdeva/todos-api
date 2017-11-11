@@ -9,6 +9,11 @@ module ControllerSpecHelper
   def expired_token_generator(user_id)
     JsonWebToken.encode({ user_id: user_id }, (Time.now.to_i - 10))
   end
+
+  def request_headers
+    {"Content-Type" => "application/json"}
+  end
+
   #
   # # return valid headers
   # def valid_headers

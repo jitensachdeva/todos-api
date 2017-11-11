@@ -12,4 +12,8 @@ class Message
     'Invalid credentials'
   end
 
+  def self.account_created
+    'Account created'
+  end
+
 end
